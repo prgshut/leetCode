@@ -4,15 +4,21 @@ import java.util.stream.Collectors;
 public class Solution {
 
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        if (n == 0 || m == 0) {
+        if (n == 0) {
             return;
         }
         int j = 0;
         for (int i = 0; i < nums2.length; i++) {
-            if (nums1[i] > nums2[j]) {
-
+            nums1[nums1.length- nums2.length+i]=nums2[i];
+        }
+        for (int i = 0; i < nums1.length; i++) {
+            for (int k = 1; k < nums1.length-i; k++) {
+                if (nums1[k-1]>nums1[k]){
+                    int temp=nums1[k];
+                    nums1[k]=nums1[k-1];
+                    nums1[k-1]=temp;
+                }
             }
-            nums1[m + i] = nums2[i];
         }
 
     }
@@ -106,6 +112,29 @@ public class Solution {
 
         return res.toString().trim();
        // великолепный код тут
+    }
+
+    public int removeElement(int[] nums, int val) {
+        int len=nums.length;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i]==val){
+                for (int j = len-1; j > i; j--) {
+                    if (nums[j]!=val){
+                        nums[i]=nums[j];
+                        nums[j]=val;
+                        break;
+                    }
+                }
+                len--;
+            }
+        }
+        len=0;
+        for (int j = 0; j < nums.length; j++) {
+            if (nums[j]!=val){
+                len++;
+            }
+        }
+        return len;
     }
 
 }
